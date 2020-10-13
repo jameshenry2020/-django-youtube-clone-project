@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}video upload{% endblock %}
+
+
+
+{% block content %}
+  <div class="grid grid-cols-3 py-6 bg-blue-200">
+      <div class="upload-console col-span-2">
+          <div class="upload-file-body" id="upload-area">
+              <h3 class="text-2xl capitalize font-semibold py-2">select video to upload</h3>
+              <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                 <input type="file" name="file" id="file-upload">
+                 <input type="submit" class="border py-2 px-6 text-md hover:bg-gray-600 hover:text-white" value="Upload Video" id="standard-upload">
+              </form>
+              <div class="upload-drop" id="drop-zone">
+                  just drag and drop file
+              </div>
+
+              <div class="video-info" id="upload-info">
+
+              </div>
+
+              <div class="bar">
+                  <div class="progressbar" id="bar-fill">
+                       <div class="bar-fill-text"></div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+      <div class="upload-completed" id="upload-finish">
+
+      </div>
+  </div>
+
+{%endblock%}
+
+{% block extra_body %}
+    <script src="{% static 'js/upload_script.js'%}"></script>
+{% endblock %}

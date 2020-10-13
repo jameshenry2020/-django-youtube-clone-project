@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}my channel{% endblock %}
+
+
+    <!--main body begins--->
+  
+
+      
+        {% block content %}
+           <div class=" w-full flex justify-center items-center " style="height: 280px;">      
+                    <img src="{{channel.channel_art.url}}" class="block w-screen rounded h-full" alt="channel art">                 
+           </div>
+           <!--end main header-->
+           <div>
+              <div class="w-full h-32 bg-gray-400 flex items-center justify-between">
+                 <div class="flex space-x-4 pt-2 px-2">
+                    <img src="{{channel.channel_icon.url}}" class="rounded-full h-16 w-16" alt="profile pic">
+                    <div>
+                        <h2>{{channel.name}}</h2>
+                         <h4>448k subcriber</h4>
+                    </div>
+                 </div>
+                 <div class="py-2 px-4">
+                     <a href="{%url 'update-channel' channel.slug%}" class="text-xl bg-blue-700 border border-gray-500 px-4 py-3">Edit channel</a>
+                     <button class="text-xl bg-blue-700 border border-gray-500 px-4 py-3">Vclub Studio</button>
+                 </div>
+              </div>
+               
+              <div class="tab-container">
+                <button class="tablink active:bg-gray-300" onclick="openPage('Home', this)" id="defaultOpen">Home</button>
+                <button class="tablink active:bg-gray-300" onclick="openPage('video', this)">Video</button>
+                <button class="tablink active:bg-gray-300" onclick="openPage('playlist', this)">Playlist</button>
+                <button class="tablink active:bg-gray-300" onclick="openPage('About', this)">About</button>
+                
+                <div id="Home" class="tabcontent">
+                  <h3>Home</h3>
+                  <p>Home is where the heart is..</p>
+                </div>
+                
+                <div id="video" class="tabcontent">
+                  <h3>uploaded videos</h3>
+                  <div class="flex mt-2">
+                    <div class="w-1/4">
+                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+    
+                       <div class="flex justify-between mt-4">
+                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                       <div>
+                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
+                           <div class="mt-2 text-sm text-gray-700">
+                               <h2>channel name</h2>
+                               <h3>1.9k views 3 day ago</h3>
+                           </div>
+                       </div>
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                       </svg>
+                   </div>
+                       
+                   </div>
+    
+                   <div class="w-1/4 mx-4">
+                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+    
+                       <div class="flex justify-between mt-4">
+                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                       <div>
+                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
+                           <div class="mt-2 text-sm text-gray-700">
+                               <h2>channel name</h2>
+                               <h3>1.9k views 3 day ago</h3>
+                           </div>
+                       </div>
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                       </svg>
+                   </div>
+                       
+                   </div>
+    
+                   <div class="w-1/4">
+                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+    
+                       <div class="flex justify-between mt-4">
+                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                       <div>
+                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
+                           <div class="mt-2 text-sm text-gray-700">
+                               <h2>channel name</h2>
+                               <h3>1.9k views 3 day ago</h3>
+                           </div>
+                       </div>
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                       </svg>
+                   </div>
+                       
+                   </div>
+    
+                   <div class="w-1/4 mx-4">
+                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+    
+                       <div class="flex justify-between mt-4">
+                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                       <div>
+                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
+                           <div class="mt-2 text-sm text-gray-700">
+                               <h2>channel name</h2>
+                               <h3>1.9k views 3 day ago</h3>
+                           </div>
+                       </div>
+                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                       </svg>
+                   </div>
+                       
+                   </div>
+                 </div>
+
+
+                </div>
+                
+                <div id="playlist" class="tabcontent">
+                  <h3>Contact</h3>
+                  <p>Get in touch, or swing by for a cup of coffee.</p>
+                </div>
+                
+                <div id="About" class="tabcontent">
+                  <h3>About</h3>
+                  <p>Who we are and what we do.</p>
+                </div>
+              </div>
+             
+           </div> 
+           
+           
+        {%endblock%}
+
+
+{% block extra_body %}
+       <script src="{%static 'js/tabs.js' %}"></script> 
+ {% endblock %}
+
+ 
+  
+ 

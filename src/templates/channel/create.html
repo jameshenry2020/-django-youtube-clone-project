@@ -1,0 +1,44 @@
+{%extends "base.html"%}
+{% load static %}
+
+{% block head_title %}create channel{% endblock %}
+
+{% block content %}
+<div class="container-lg bg-blue-200 py-6  mx-auto flex justify-center items-center h-screen">
+    <div class="p-6 text-center">
+        <h1 class="text-4xl font-bold font-serif capitalize py-4 ">Welcome to VideoClub</h1>
+        <p class="text-xl font-medium italic antialiased mb-6 tracking-wide font-mono">share your video content with millions of viewers</p>
+
+        <button class="py-2 my-2 bg-blue-500 text-white hover:bg-blue-700 px-4 shadow-lg text-md font-bold rounded border" id="open">Create Channel</button>
+
+        <div class="fixed top-0 left-0 w-full h-full z-10 overflow-auto" id="modal" style="background-color: rgba(0,0,0,0.3);">
+        <div class="modal-content bg-white mx-auto  mt-56 rounded w-1/2 h-auto border border-gray-200 p-6 shadow-lg">
+            <div class="modal-header py-4 border-b">
+               <h2 class="text-3xl uppercase inline-block">create your channel </h2>
+                <span class="close text-xl text-gray-600 cursor-pointer hover:text-black font-semibold float-right" id="close_btn">X</span>
+            </div>
+            <div class="modal-body py-8">
+                <form action="." method="POST">
+                    <div class="my-6">
+                        {%csrf_token%}
+
+                        {{channel_form}}
+                    </div>
+                    <div class="modal-footer border-t py-8">
+                       <button type="submit" class="py-3 px-6 text-white bg-blue-700 border border-gray-300 mr-2 font-semibold">Create</button>
+                       <a href="#" class="py-4 px-6 text-white bg-red-700 border border-gray-300 ml-2 font-semibold" id="close">cancel</a>
+                   </div>
+                  </form>
+            </div>
+           
+        </div>
+    </div>              
+</div>
+</div>
+
+
+
+{% endblock %}
+{% block extra_body %}
+<script src="{%static 'js/script.js'%}"></script>
+{% endblock %}

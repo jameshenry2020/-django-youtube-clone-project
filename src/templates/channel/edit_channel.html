@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_title %}Update channel{% endblock %}
+
+
+    <!--main body begins--->
+  
+
+      
+        {% block content %}
+           <div class=" w-full flex justify-center items-center p-4 border">      
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div>
+                        {{edit_form.as_p}}
+                    </div>
+                    <button class="border border-blue-400 rounded py-2 px-4" type="submit">Update</button>
+                </form>                     
+           </div>
+           <!--end main header-->
+          
+           
+           
+        {%endblock%}
+
+
+ 
+  
+ 
