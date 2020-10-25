@@ -25,19 +25,20 @@
 
               <div class="bar">
                   <div class="progressbar" id="bar-fill">
-                       <div class="bar-fill-text"></div>
+                       <div class="bar-fill-text" id="bar-text"></div>
                   </div>
               </div>
           </div>
 
       </div>
       <div class="upload-completed" id="upload-finish">
-
+         
       </div>
   </div>
 
 {%endblock%}
 
 {% block extra_body %}
+    <script src="{% static 'js/upload.js' %}"></script>
     <script src="{% static 'js/upload_script.js'%}"></script>
 {% endblock %}

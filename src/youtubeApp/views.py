@@ -1,6 +1,8 @@
 from django.shortcuts import render,redirect
 from .forms import ChannelForm,EditChannelForm
-from .models import Channel
+from .models import Channel,VideoFiles
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -47,3 +49,19 @@ def edit_channel(request, slug):
 
 def upload_view(request):
     return render(request, "channel/fileupload.html")
+@login_required
+def upload_processing(request):
+    channel=Channel.objects.get(slug=request.user.username)
+    if channel is not None:
+        if request.method =="POST":
+            file=request.FILES['file']
+            upload=VideoFiles.objects.create(video=file, channel=channel)
+            data={
+                'video_id':upload.id,
+                "video_path":upload.video.url
+            }
+            return JsonResponse(data, safe=False)
+        return JsonResponse({'error':'an error ocurred'})
+    else:
+       # messages.info( sorry you dont have channel please create one)
+        return redirect("file-upload")

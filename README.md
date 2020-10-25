@@ -14,7 +14,7 @@ video management system like youtube ( youtube clone)
  edit video
  delete video
 
- #m model structure
+  model structure
  User
 
  Category
