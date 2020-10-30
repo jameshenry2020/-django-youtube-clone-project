@@ -18,9 +18,32 @@
               <div class="upload-drop" id="drop-zone">
                   just drag and drop file
               </div>
-
-              <div class="video-info" id="upload-info">
-
+            </div>
+              <div class="video-info hidden" id="upload-info">
+                  <h2 class="text-center texy-lg capitalize my-4">Video details</h2>
+                  <form action="{%url 'video-data'%}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        <input type="hidden" id="video_id" name="videofile">
+                    </div>
+                    <div class="my-3">
+                         <input type="text" name="title" class="border py-2 border-gray-400 w-full focus:outline-none focus:shadow-outline" placeholder="title">
+                    </div>
+                    <div class="my-2">
+                        <textarea name="description" rows="8" cols="30" placeholder="Description" class="border border-gray-400 w-full focus:outline-none focus:shadow-outline"></textarea>
+                    </div>
+                    <div>
+                        <select name="visibility" id="visibility" class="box-border border py-2 border-gray-400 w-full focus:outline-none">
+                            <option value="True">Public</option>
+                            <option value="False">Private</option>
+                        </select>
+                    </div>
+                    <div>
+                        <span class="text-md">select a thumbnail</span>
+                        <input type="file" name="thumbnail" id="thumbnail" class="p-4">
+                    </div>
+                      <button type="submit" class="py-2 px-4 border bg-blue-500 text-white">Save</button>
+                 </form>
               </div>
 
               <div class="bar">
@@ -28,7 +51,7 @@
                        <div class="bar-fill-text" id="bar-text"></div>
                   </div>
               </div>
-          </div>
+          
 
       </div>
       <div class="upload-completed" id="upload-finish">

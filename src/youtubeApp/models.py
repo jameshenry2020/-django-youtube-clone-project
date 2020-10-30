@@ -40,7 +40,7 @@ class VideoDetail(models.Model):
     title=models.CharField(max_length=200)
     description=models.TextField()
     visibility=models.BooleanField(choices=((False, "private"),(True, "public")))
-    thumbnail=models.ImageField()
+    thumbnail=models.ImageField(upload_to="thumbnail/")
 
     def __str__(self):
         return self.title

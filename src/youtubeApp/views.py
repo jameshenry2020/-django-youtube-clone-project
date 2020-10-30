@@ -1,6 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ChannelForm,EditChannelForm
-from .models import Channel,VideoFiles
+from .models import Channel,VideoFiles,VideoDetail
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
@@ -46,10 +46,11 @@ def edit_channel(request, slug):
 
     return render(request, "channel/edit_channel.html", context)
 
-
+@login_required
 def upload_view(request):
     return render(request, "channel/fileupload.html")
-@login_required
+
+
 def upload_processing(request):
     channel=Channel.objects.get(slug=request.user.username)
     if channel is not None:
@@ -65,3 +66,18 @@ def upload_processing(request):
     else:
        # messages.info( sorry you dont have channel please create one)
         return redirect("file-upload")
+
+
+def video_info_process(request):
+    if request.method == "POST":
+        file_id=request.POST['videofile']
+        title=request.POST['title']
+        desc=request.POST['description']
+        visibility=request.POST['visibility']
+        thumbnail=request.FILES['thumbnail']
+
+        video=get_object_or_404(VideoFiles, id=file_id)
+        VideoDetail.objects.create(videofile=video,title=title, description=desc, visibility=visibility, thumbnail=thumbnail)
+         #message video uploaded successful
+        return redirect('mychannel', slug=request.user.username)
+    return redirect('file-upload')

@@ -5,6 +5,9 @@
       let progressbar=document.getElementById('bar-fill');
       let progressText=document.getElementById('bar-text');
       let uploadfinished=document.getElementById('upload-finish');
+      let uploadinfo=document.getElementById('upload-info')
+      let filefield=document.getElementById('video_id')
+      let uploadarea=document.getElementById('upload-area')
         startUpload=function(file){
             app.uploader({
                 file:file,
@@ -29,7 +32,12 @@
                     uploadedElement.appendChild(uploadedVideo);
   
                     uploadfinished.appendChild(uploadedElement)
-                    uploadfinished.className='upload-completed'
+                    uploadfinished.className='upload-completed';
+
+                    uploadarea.className='hidden';
+                    uploadinfo.className='video-info'
+                    filefield.value=data.video_id
+
                             
                 },
                 error:function(){
