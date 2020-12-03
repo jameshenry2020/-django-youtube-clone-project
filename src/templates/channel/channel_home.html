@@ -41,16 +41,16 @@
                 
                 <div id="video" class="tabcontent">
                   <h3>uploaded videos</h3>
-                  <div class="flex mt-2">
-                    <div class="w-1/4">
-                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+                  <div class="grid lg:grid-cols-4 gap-8 mt-2">
+                      {% for vid in my_videos%}
+                       <div class="card">
+                       <img src="{{vid.videodetail.thumbnail.url}}" alt="thumbnail" class="w-full h-40">
     
                        <div class="flex justify-between mt-4">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                        <img src="{{vid.channel.channel_icon.url}}" class="rounded-full h-10 w-10" alt="profile pic">
                        <div>
-                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
+                           <h1>{{vid.videodetail.title}}</h1>
+                           <div class="mt-2 text-sm text-white-700">
                                <h3>1.9k views 3 day ago</h3>
                            </div>
                        </div>
@@ -59,64 +59,15 @@
                        </svg>
                    </div>
                        
-                   </div>
-    
-                   <div class="w-1/4 mx-4">
-                       <img src="imgs/aerobic.jpg" alt="thumbnail">
-    
-                       <div class="flex justify-between mt-4">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                       <div>
-                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
                        </div>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                       </svg>
-                   </div>
-                       
-                   </div>
+                    {% endfor%}
+
     
-                   <div class="w-1/4">
-                       <img src="imgs/aerobic.jpg" alt="thumbnail">
+                   
     
-                       <div class="flex justify-between mt-4">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                       <div>
-                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
-                       </div>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                       </svg>
-                   </div>
-                       
-                   </div>
+                   
     
-                   <div class="w-1/4 mx-4">
-                       <img src="imgs/aerobic.jpg" alt="thumbnail">
-    
-                       <div class="flex justify-between mt-4">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                       <div>
-                           <h1>Lorem ipsum dolor sit, amet consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
-                       </div>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor">
-                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                       </svg>
-                   </div>
-                       
-                   </div>
+                   
                  </div>
 
 

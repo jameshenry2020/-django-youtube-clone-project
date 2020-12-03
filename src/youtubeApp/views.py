@@ -25,11 +25,21 @@ def create_channel(request):
 
 def channel(request, slug):
     mychannel=Channel.objects.get(slug=slug)
+    channel_videos=VideoFiles.objects.filter(channel=mychannel)
     context={
-        "channel":mychannel
+        "channel":mychannel,
+        "my_videos":channel_videos
     }
 
     return render(request, "channel/channel_home.html", context)
+
+def index(request):
+    allvideos=VideoFiles.objects.all()
+    allvideos=allvideos.filter(videodetail__visibility=True)
+    context={
+        "videos":allvideos
+    }
+    return render(request, "videos/index.html", context)
 
 def edit_channel(request, slug):
     channel=Channel.objects.get(slug=slug)

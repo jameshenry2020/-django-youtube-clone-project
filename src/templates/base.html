@@ -1,4 +1,5 @@
  {% load static %}
+ {% load channel_check %}
  <!DOCTYPE html>
 <html>
   <head>
@@ -17,12 +18,13 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
+          <a href="{%url 'home'%}">
           <div class="ml-8 flex items-center">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-8" viewBox="0 0 20 20" fill="#F44336">
                   <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
               </svg>
               <span class="text-4xl font-bold font-serif capitalize">VideoClub</span>
-          </div>
+          </div></a>
       </div>
 
       <div class="flex">
@@ -35,9 +37,11 @@
       </div>
 
       <div class="flex items-center">
+        <a href="{% url 'file-upload' %}">
           <svg xmlns="http://www.w3.org/2000/svg" class=" w-10 px-2 cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
               <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
             </svg>
+        </a>
 
             <svg xmlns="http://www.w3.org/2000/svg" class=" w-10 px-2 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
@@ -84,9 +88,22 @@
                 </div>
                 <div class="profile_d z-20 shadow-xl absolute border rounded border-gray-200  bg-white">
                     <ul>
-                      
+                      {%if request.user|has_channel %}
+                      <li class="border-b border-gray-200 hover:bg-gray-200">       
+                        <a href="{% url 'mychannel' user.username%}" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                          <span class="p_icon">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                                  <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                              </svg>
+                          </span>
+                           Your channel  
+                        </a>
+                     </li>
+
+
+                      {% else %}
                         <li class="border-b border-gray-200 hover:bg-gray-200">       
-                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                            <a href="{% url 'create-channel '%}" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
                               <span class="p_icon">
                                   <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
                                       <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
@@ -95,6 +112,7 @@
                                create channel  
                             </a>
                         </li>
+                        {% endif %}
                         <li class="border-b border-gray-200 hover:bg-gray-200">       
                           <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
                             <span class="p_icon">

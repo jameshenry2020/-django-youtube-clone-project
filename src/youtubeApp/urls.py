@@ -5,10 +5,12 @@ from .views import ( create_channel,
                     upload_view,
                     upload_processing,
                     video_info_process,
+                    index,
                    )
 
 
 urlpatterns=[
+    path('', index, name="home"),
     path("channel/create/",create_channel, name="create-channel"),
     path("channel/<slug>/", channel, name="mychannel"),
     path("update_channel/<slug>/", edit_channel, name="update-channel"),
