@@ -41,6 +41,15 @@ def index(request):
     }
     return render(request, "videos/index.html", context)
 
+def video_watch_view(request, video_id):
+    video=get_object_or_404(VideoFiles, id=video_id)
+    context={
+        "my_video":video
+    }
+
+    return render(request, "videos/watch.html", context)
+
+
 def edit_channel(request, slug):
     channel=Channel.objects.get(slug=slug)
     if request.method =="POST":
