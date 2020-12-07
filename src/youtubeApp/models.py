@@ -1,5 +1,6 @@
 import uuid
 from django.db import models
+from django.shortcuts import reverse
 from django.conf import settings
 
 def channel_directory_path(instance, filename):
@@ -33,6 +34,9 @@ class VideoFiles(models.Model):
 
     def __str__(self):
         return f"video_file_{self.id}"
+
+    def get_absolute_url(self):
+        return reverse('video_watch', args=[str(self.id)])
 
 
 class VideoDetail(models.Model):
