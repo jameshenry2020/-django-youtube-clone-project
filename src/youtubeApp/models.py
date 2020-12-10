@@ -31,13 +31,20 @@ class VideoFiles(models.Model):
     video=models.FileField(upload_to=channel_directory_path)
     channel=models.ForeignKey(Channel, on_delete=models.CASCADE)
     uploaded=models.DateTimeField(auto_now_add=True)
+    likes=models.ManyToManyField(User, related_name="video_loved")
+    dislikes=models.ManyToManyField(User, related_name="video_disliked")
 
     def __str__(self):
         return f"video_file_{self.id}"
 
     def get_absolute_url(self):
         return reverse('video_watch', args=[str(self.id)])
+    
+    def num_likes(self):
+        return self.likes.count()
 
+    def num_dislikes(self):
+        return self.dislikes.count()
 
 class VideoDetail(models.Model):
     videofile=models.OneToOneField(VideoFiles, on_delete=models.CASCADE)
