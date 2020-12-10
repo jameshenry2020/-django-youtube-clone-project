@@ -48,4 +48,10 @@ class VideoDetail(models.Model):
 
     def __str__(self):
         return self.title
-    
+class ViewCount(models.Model):
+    video=models.ForeignKey(VideoFiles, related_name="view_count", on_delete=models.CASCADE)
+    ip_address=models.CharField(max_length=50)
+    session=models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.ip_address}"
