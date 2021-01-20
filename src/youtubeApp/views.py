@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ChannelForm,EditChannelForm
-from .models import Channel,VideoFiles,VideoDetail
+from .models import Channel,VideoFiles,VideoDetail, ViewCount
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.urls import reverse
 
 # Create your views here.
 
@@ -43,11 +44,65 @@ def index(request):
 
 def video_watch_view(request, video_id):
     video=get_object_or_404(VideoFiles, id=video_id)
+    ip=request.META['REMOTE_ADDR']
+    if not ViewCount.objects.filter(video=video, session=request.session.session_key):
+        view=ViewCount(video=video, ip_address=ip, session=request.session.session_key)
+        view.save()
+    video_views=ViewCount.objects.filter(video=video).count()
     context={
-        "my_video":video
+        "my_video":video,
+        "view_count":video_views
+       
     }
 
     return render(request, "videos/watch.html", context)
+
+
+@login_required
+def liked_video(request, id):
+    user=request.user
+    Like=False
+    if request.method=="POST":
+        video_id=request.POST['video_id']
+        get_video=get_object_or_404(VideoFiles, id=video_id)
+        if user in get_video.likes.all():
+            get_video.likes.remove(user)
+            Like=False
+        else:
+            get_video.likes.add(user)
+            Like=True
+        data={
+            "liked":Like,
+            "likes_count":get_video.likes.all().count()
+        }
+        return JsonResponse(data, safe=False)
+    return redirect(reverse("video_watch", args=[str(id)]))
+
+
+@login_required
+def dislike_video(request, id):
+    user=request.user
+    Dislikes=False
+    if request.method == "POST":
+        video_id=request.POST['video_id']
+        print("printing ajax id", video_id)
+        watch=get_object_or_404(VideoFiles, id=video_id)
+        if user in watch.dislikes.all():
+            watch.dislikes.remove(user)
+            Dislikes=False
+        else:
+            if user in watch.likes.all():
+                watch.likes.remove(user)
+            watch.dislikes.add(user)
+            watch.save()
+            Dislikes=True
+        data={
+            "disliked":Dislikes,
+            'dislike_count':watch.dislikes.all().count()
+        }
+        return JsonResponse(data, safe=False)
+    return redirect(reverse("video_watch", args=[str(id)]))
+        
 
 
 def edit_channel(request, slug):
