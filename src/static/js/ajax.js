@@ -60,10 +60,44 @@ $(document).ready(function(){
                    console.log('failed', response)
                }
            }) 
-           
-     
    
-   
+   })
+
+
+   //subcriber ajax call
+   $('.Subcriber_form').submit(function(e){
+       e.preventDefault()
+       const channel_id=$('.sub-btn').val()
+       const token=$('input[name=csrfmiddlewaretoken').val() 
+       const url =$(this).attr('action')
+       
+       $.ajax({
+        method:"POST",
+        url:url,
+        headers:{"X-CSRFToken": token},
+        data:{
+            'channel_id':channel_id
+        },
+        success:function(response){
+            if(response.Subscribed==true){
+                $('.sub-btn').removeClass("bg-red-700")
+                 $('.sub-btn').addClass("bg-gray-600")
+                 
+             }else{
+                $('.sub-btn').removeClass("bg-gray-600")
+                $('.sub-btn').addClass("bg-red-700")
+
+             }
+             $('.sub-count').text(response.num_subscribers)
+       
+           console.log(response)
+        },
+        error:function(response){
+           console.log("failed ", response)
+        }
+    })
+
+ 
    })
    
 })

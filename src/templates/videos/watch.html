@@ -80,12 +80,31 @@
                             <img src="{{my_video.channel.channel_icon.url}}" class="rounded-full h-12 w-12" alt="profile pic">
                             <div>
                                 <h2>{{my_video.channel.name}}</h2>
-                                <h3>32.7k subcribers</h3>
+                                <h3><span class="sub-count"> {{my_video.channel.num_subcribers}}</span> subcribers</h3> 
                             </div>
                          </div>
-                         <div>
-                             <button type="button" class="px-8 py-3 bg-red-700 text-white font-medium text-l border border-gray-400">Subcribe</button>
-                         </div>
+                        {%if request.user == my_video.channel.user%}
+                            <div>
+                                <button type="button" disabled class="px-8  py-3 bg-red-700 text-white font-medium text-l border border-gray-400">Subcribe</button>
+                            </div>
+
+                        {%else%}
+                        
+                                
+{%if user in my_video.channel.subcribers.all%}
+<form action="{%url 'subscriber'%}" method="POST" class="Subcriber_form">
+    {% csrf_token %}     
+    <button type="submit" name="channel_id" value="{{my_video.channel.id}}" class="px-8 sub-btn py-3 bg-gray-600 text-white font-medium text-l border border-gray-400">Subcribe</button>
+   
+</form>
+{%else%}
+<form action="{%url 'subscriber'%}" method="POST" class="Subcriber_form">
+   {% csrf_token %}          
+   <button type="submit" name="channel_id" value="{{my_video.channel.id}}" class="px-8 sub-btn py-3 bg-red-700 text-white font-medium text-l border border-gray-400">Subcribe</button>      
+</form>
+{%endif%}
+                         {%endif%}
+                         
                      </div>
 
                      <div class="py-8 px-12 bg-gray-300 mt-2">
@@ -99,106 +118,53 @@
                             recently with desktop publishing software like Aldus
                             PageMaker including versions of Lorem Ipsum
                         </p>
+                        
                      </div>
-                     <div>
+                      <div>
                          <div class="font-semibold capitalize text-2xl py-2">59 comments</div>
-                        <textarea name="comment" rows="4" id="comment" class="w-11/12 outline-none tracking-wider p-6 border-b border-gray-700"   placeholder="Add a comment .."></textarea>
-                     </div>
+                         <form action="{%url 'comment' my_video.id %}" method="POST">
+                             {% csrf_token %}
+                            <textarea name="comment" rows="4" id="comment" class="w-11/12 outline-none tracking-wider p-6 border-b border-gray-700"   placeholder="Add a comment .."></textarea>
+                            <button type="submit" class="py-2 px-4 border bg-gray-600  text-gray-200">Comment</button>
+                         </form>
+                        
+                      </div>
                      <div class="comment">
+                        {%for comment in my_video.comments.all %} 
                      <div class="flex space-x-3 my-2">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
+                        <img src="{%static 'imgs/avater.png'%}" class="rounded-full h-10 w-10" alt="profile pic">
                         <div class="py-2">
-                            <h2 class="capitalize font-semibold text-xl">channel name or username <span class="text-lg">3 days ago</span></h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi qui amet maxime repudiandae eligendi consectetur 
-                                soluta repellat debitis ut perferendis?</p>
+                            <h2 class="capitalize font-semibold text-xl">{{comment.user.username}} <span class="text-lg">{{comment.created_at|timesince}} ago</span></h2>
+                            <p>{{comment.comment}}</p>
                                 <a href="#" class="text-lg capitalize py-2 text-blue-700">reply</a>
                         </div>
                      </div>
+                     {%endfor%}
 
-                     <div class="flex space-x-3 my-2">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                        <div class="pb-3">
-                            <h2 class="capitalize font-semibold text-xl">channel name or username <span class="text-lg">3 days ago</span></h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi qui amet maxime repudiandae eligendi consectetur 
-                                soluta repellat debitis ut perferendis?</p>
-                                <a href="#" class="text-lg capitalize py-2 text-blue-700">reply</a>
-                        </div>
-                     </div>
-
-                     <div class="flex space-x-3 my-2">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                        <div>
-                            <h2 class="capitalize font-semibold text-xl">channel name or username <span class="text-lg">3 days ago</span></h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi qui amet maxime repudiandae eligendi consectetur 
-                                soluta repellat debitis ut perferendis?</p>
-                                <a href="#" class="text-lg capitalize py-2 text-blue-700">reply</a>
-                        </div>
-                     </div>
-
-                     <div class="flex space-x-3 my-2">
-                        <img src="imgs/avater.png" class="rounded-full h-10 w-10" alt="profile pic">
-                        <div class="py-2">
-                            <h2 class="capitalize font-semibold text-xl">channel name or username <span class="text-lg">3 days ago</span></h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Animi qui amet maxime repudiandae eligendi consectetur 
-                                soluta repellat debitis ut perferendis?</p>
-                                <a href="#" class="text-lg capitalize py-2 text-blue-700">reply</a>
-                        </div>
-                     </div>
+                    
                     </div>
                   </div>
                   <div class="container h-screen min-h-full  bg-white">
                       <h2 class="font-semibold py-2 capitalize text-xl">Up next</h2>
-                      <div class=" flex  space-x-2 py-2  border-t  px-2">
+                           {%for sug_vid in recommended_videos%}
+                              <div class=" flex  space-x-2 py-2  border-t  px-2">
                      <div class="w-1/2 h-40 py-2">
-                        <img src="imgs/django.jpg" class="" alt="thumbnail">
+                        <img src="{{sug_vid.videodetail.thumbnail.url}}" class="" alt="thumbnail">
                      </div>
                     <div>
-                        <h1 class="font-semibold">Lorem ipsum dolor sit, amet <br> consectetur consectetur.</h1>
+                        <h1 class="font-semibold">{{sug_vid.videodetail.title}}</h1>
                         <div class="mt-2 text-sm text-gray-700">
-                            <h2>channel name</h2>
-                            <h3>1.9k views 3 day ago</h3>
+                            <h2>{{sug_vid.channel.name}}</h2>
+                            <h3><span>{{sug_vid.view_count.count}}</span> views 3 day ago</h3>
                         </div>
                     </div>
-                    </div>
+                               </div>
+                          {%endfor%}
 
-                    <div class=" flex  space-x-2 py-2  border-t  px-2">
-                        <div class="w-1/2 h-40 py-2">
-                           <img src="imgs/django.jpg" class="" alt="thumbnail">
-                        </div>
-                       <div>
-                           <h1 class="font-semibold">Lorem ipsum dolor sit, amet <br> consectetur consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
-                       </div>
-                       </div>
+                    
 
-                       <div class=" flex  space-x-2 py-2  border-t  px-2">
-                        <div class="w-1/2 h-40 py-2">
-                           <img src="imgs/django.jpg" class="" alt="thumbnail">
-                        </div>
-                       <div>
-                           <h1 class="font-semibold">Lorem ipsum dolor sit, amet <br> consectetur consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
-                       </div>
-                       </div>
+                       
 
-                       <div class=" flex  space-x-2 py-2  border-t  px-2">
-                        <div class="w-1/2 h-40 py-2">
-                           <img src="imgs/django.jpg" class="" alt="thumbnail">
-                        </div>
-                       <div>
-                           <h1 class="font-semibold">Lorem ipsum dolor sit, amet <br> consectetur consectetur.</h1>
-                           <div class="mt-2 text-sm text-gray-700">
-                               <h2>channel name</h2>
-                               <h3>1.9k views 3 day ago</h3>
-                           </div>
-                       </div>
-                       </div>
                   </div> 
               </div>
             {% endblock %}

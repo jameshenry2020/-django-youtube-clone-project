@@ -1,9 +1,10 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .forms import ChannelForm,EditChannelForm
-from .models import Channel,VideoFiles,VideoDetail, ViewCount
+from .models import Channel,VideoFiles,VideoDetail, ViewCount, VideoComment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.urls import reverse
+
 
 # Create your views here.
 
@@ -16,6 +17,8 @@ def create_channel(request):
             category=form.cleaned_data.get('category')
             Channel.objects.create(name=name, user=user,slug=user.username, category=category)
             return redirect("mychannel", slug=user.username)
+
+        return render(request, "channel/create.html", context)
 
     else:
         form=ChannelForm()
@@ -44,6 +47,9 @@ def index(request):
 
 def video_watch_view(request, video_id):
     video=get_object_or_404(VideoFiles, id=video_id)
+    vid_cat=video.channel.category.name
+    suggested_videos=VideoFiles.objects.filter(channel__category__name=vid_cat).exclude(video=video.video)
+    
     ip=request.META['REMOTE_ADDR']
     if not ViewCount.objects.filter(video=video, session=request.session.session_key):
         view=ViewCount(video=video, ip_address=ip, session=request.session.session_key)
@@ -51,7 +57,9 @@ def video_watch_view(request, video_id):
     video_views=ViewCount.objects.filter(video=video).count()
     context={
         "my_video":video,
-        "view_count":video_views
+        "view_count":video_views,
+        "recommended_videos":suggested_videos
+      
        
     }
 
@@ -102,8 +110,38 @@ def dislike_video(request, id):
         }
         return JsonResponse(data, safe=False)
     return redirect(reverse("video_watch", args=[str(id)]))
-        
 
+@login_required
+def subscriber_view(request):
+    subscriber=request.user
+    Subcribed=False
+    if request.method =="POST":
+        channel_id=request.POST['channel_id']
+        channel=get_object_or_404(Channel, id=channel_id)
+        if subscriber in channel.subcribers.all():
+            channel.subcribers.remove(subscriber)
+            Subcribed=False
+        else:
+            channel.subcribers.add(subscriber) 
+            channel.save()
+            Subcribed=True
+        data={
+            'Subscribed':Subcribed,
+            'num_subscribers':channel.num_subcribers()
+        }
+        return JsonResponse(data, safe=False)
+    return JsonResponse({'error':'an error has occured '})
+            
+
+@login_required
+def video_comment(request, video_id):
+    if request.method =="POST":
+        comment=request.POST['comment']
+        video=VideoFiles.objects.get(id=video_id)
+        if comment is not None:
+            create_comment=VideoComment(video=video, user=request.user, comment=comment)
+            create_comment.save()
+    return redirect('video_watch', video_id=video_id)
 
 def edit_channel(request, slug):
     channel=Channel.objects.get(slug=slug)
