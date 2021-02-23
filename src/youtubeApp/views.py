@@ -37,6 +37,17 @@ def channel(request, slug):
 
     return render(request, "channel/channel_home.html", context)
 
+def dashboard(request, slug):
+    channel=get_object_or_404(Channel, slug=slug)
+    myvideos=VideoFiles.objects.filter(channel=channel)
+    context={
+        "channel":channel,
+        "videos":myvideos
+
+    }
+    return render(request, "channel/dashboard.html", context)
+
+
 def index(request):
     allvideos=VideoFiles.objects.all()
     allvideos=allvideos.filter(videodetail__visibility=True)
