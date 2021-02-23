@@ -22,9 +22,12 @@ class Channel(models.Model):
     slug=models.SlugField()
     description=models.TextField(blank=True, null=True)
     category=models.ForeignKey(Category, on_delete=models.CASCADE)
-
+    subcribers=models.ManyToManyField(User, related_name="subscribers")
     def __str__(self):
         return self.name
+
+    def num_subcribers(self):
+        return self.subcribers.count()
 
 class VideoFiles(models.Model):
     id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -62,3 +65,12 @@ class ViewCount(models.Model):
 
     def __str__(self):
         return f"{self.ip_address}"
+
+class VideoComment(models.Model):
+    video=models.ForeignKey(VideoFiles, related_name="comments", on_delete=models.CASCADE)
+    user=models.ForeignKey(User, on_delete=models.CASCADE)
+    comment=models.TextField()
+    created_at=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} comment"
