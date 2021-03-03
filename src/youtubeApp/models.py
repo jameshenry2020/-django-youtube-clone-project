@@ -40,6 +40,10 @@ class VideoFiles(models.Model):
     def __str__(self):
         return f"video_file_{self.id}"
 
+    def delete(self, *args, **kwargs):
+        self.video.delete()
+        super().delete(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse('video_watch', args=[str(self.id)])
     

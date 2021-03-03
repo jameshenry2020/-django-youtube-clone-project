@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
-from .forms import ChannelForm,EditChannelForm
+from .forms import ChannelForm,EditChannelForm, VideoDataForm
 from .models import Channel,VideoFiles,VideoDetail, ViewCount, VideoComment
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -36,6 +36,41 @@ def channel(request, slug):
     }
 
     return render(request, "channel/channel_home.html", context)
+
+def dashboard(request, slug):
+    channel=get_object_or_404(Channel, slug=slug)
+    myvideos=VideoFiles.objects.filter(channel=channel)
+    context={
+        "channel":channel,
+        "videos":myvideos
+
+    }
+    return render(request, "channel/dashboard.html", context)
+
+
+def update_video(request, id):
+    video=VideoFiles.objects.get(id=id)
+    form=VideoDataForm(instance=video.videodetail)
+    if request.method=="POST":
+        form=VideoDataForm(request.POST, request.FILES, instance=video.videodetail)
+        if form.is_valid():
+            form.save()
+            return redirect("channel-dashboard", slug=video.channel.slug)
+    context={
+        "update_form":form
+    }
+    return render(request, "channel/video-update.html", context)
+
+def delete_video(request, id):
+    video=VideoFiles.objects.get(id=id)
+    if request.method=="POST":
+        video.delete()
+        return redirect("channel-dashboard", slug=request.user.username)
+    context={
+        "video":video
+    }
+    return render(request, "channel/delete_video.html", context)
+
 
 def index(request):
     allvideos=VideoFiles.objects.all()

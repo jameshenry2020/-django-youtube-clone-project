@@ -1,0 +1,260 @@
+{% load static%}
+{% load channel_check %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <title>video club</title>
+</head>
+<body class="bg-gray-200">
+    <div class="flex justify-between w-full items-center py-2 px-6 bg-white top-0 fixed">
+        <div class="flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <div class="ml-8 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-8" viewBox="0 0 20 20" fill="#F44336">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+               <a href="{%url 'home'%}"> <span class="text-4xl font-bold font-serif capitalize">VideoClub</span></a>
+            </div>
+        </div>
+
+        <div class="flex">
+            <input type="text" name="search" class="border border-gray-400  px-3 py-3 outline-none focus:shadow-outline" size="60" placeholder="Search...">
+             <div class="flex items-center border border-l-0 border-gray-400 px-4 hover:bg-gray-200">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd" />
+                </svg>
+             </div>
+        </div>
+
+        <div class="flex items-center">
+            <a href="{%url 'file-upload'%}" class="py-2 px-6 border border-blue-400 hover:bg-blue-400 hover:text-white text-lg">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg"class="inline-block" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
+                    </svg>
+                </span>create</a>
+              
+
+              <div class="relative profile">
+                   <div class="icon_wrap p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class=" w-16 h-16 px-2 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                  </div>
+                  <div class="profile_d z-20 shadow-xl absolute border rounded border-gray-200  bg-white">
+                      <ul>
+                        {%if request.user|has_channel %}
+                        <li class="border-b border-gray-200 hover:bg-gray-200">       
+                          <a href="{%url 'mychannel' user.username%}" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                            <span class="p_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                </svg>
+                            </span>
+                             your channel  
+                          </a>
+                      </li>
+                        {%else%}
+                        <li class="border-b border-gray-200 hover:bg-gray-200">       
+                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                              <span class="p_icon">
+                                  <svg xmlns="http://www.w3.org/2000/svg" class="mx-2" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                                      <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                                  </svg>
+                              </span>
+                               create channel  
+                            </a>
+                        </li>
+
+
+                        {%endif%}
+                          <li class="border-b border-gray-200 hover:bg-gray-200">       
+                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                              <span class="p_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="mx-2" width="24" height="24" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                                </svg>
+                              </span>
+                              club studio   
+                            </a>
+                        </li>
+                        <li class="border-b border-gray-200 hover:bg-gray-200">       
+                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                              <span class="p_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" class="mx-2" fill="currentColor">
+                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
+                                </svg>
+                              </span>
+                               paid membership 
+                            </a>
+                        </li>
+                        <li class="border-b border-gray-200 hover:bg-gray-200">       
+                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                              <span class="p_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" class="mx-2" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                                </svg>
+                              </span>
+                               settings
+                            </a>
+                        </li>
+                        <li class="border-b border-gray-200 hover:bg-gray-200">       
+                            <a href="#" class="flex items-center py-3 px-4 text-xl text-gray-600 font-semibold capitalize">
+                              <span class="p_icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="mx-2" width="24" height="24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                              </span>
+                               signout
+                            </a>
+                        </li>
+                        
+                      </ul>
+                  </div>
+             </div>
+        </div>
+    </div>
+
+    <!--main body begins--->
+    <main>
+    <div class="flex mt-24 ">
+  <!--sidebar begins--->
+        <div class="bg-white h-screen text-sm tracking-tighter cursor-pointer left-0 fixed" style="width: 200px;">
+            <div class="hover:bg-gray-200 flex flex-col items-center py-4 w-full">
+                
+                <img src="{{channel.channel_icon.url}}" class="rounded-full h-16 w-16 mb-2" alt="profile pic">
+                <h2 class="text-xl capitalize">your channel</h2>
+                <h3 class="text-lg text-gray-400 capitalize">{{channel.name}}</h3>
+            </div>
+
+            <div class="hover:bg-gray-200 flex bg-blue-200 flex-col items-center py-4 w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                  </svg>
+                <span class="mt-2 text-lg capitalize font-semibold">videos</span>
+            </div>
+
+            <div class="hover:bg-gray-200 flex flex-col items-center py-4 w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="24" height="24" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                  </svg>
+                <span class="text-lg capitalize font-semibold mt-2">Analytics</span>
+            </div>
+
+            <div class="hover:bg-gray-200 flex flex-col items-center py-4 w-full">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                </svg>
+                <span class="mt-2 capitalize text-lg font-semibold">settings</span>
+            </div>
+        </div>
+
+        <div class=" overflow-hidden p-4 " style="margin-left: 200px; width: 100%;">
+           <div class=" grid grid-cols-3 gap-8 bg-blue-200 py-6   mx-auto flex justify-center items-center">
+                 <div class="h-40 ml-4 py-6 text-center border bg-white shadow-lg">
+                   <div class="text-lg">{{videos.count}}</div>
+                    <h2 class="text-lg mt-4 capitalize">total videos</h2>
+                 </div>
+                 <div class="h-40 py-6 text-center  border bg-gray-100 shadow-lg">
+                    <div class="text-lg"> {{channel.num_subcribers}}</div>
+                    <h2 class="text-lg mt-4 capitalize">total subscribers</h2>
+                </div>
+                <div class="h-40 py-6 mr-4 text-center border bg-gray-100 shadow-lg">
+                     <div class="text-lg">2 of 10</div>
+                   <h3 class="text-lg mt-4 capitalize">performance rating</h3> 
+                </div>                
+           </div>
+
+           <!--end main header-->
+           <div class="m-8">
+                <table class="border border-gray-500 w-full min-w-full">
+                    <thead>
+                    <tr class="border border-gray-500">
+                        <th class="border-r border-gray-500">videos</th>
+                        <th class="py-2 px-4 capitalize">visibility</th>
+                        <th class="py-2 px-4 capitalize">date</th>
+                        <th class="py-2 px-4 capitalize">views</th>
+                        <th class="py-2 px-4 capitalize">likes</th>
+                        <th class="py-2 px-4 capitalize">comments</th>
+                        <th class="py-2 px-4 capitalize">Edit Video</th>
+                        <th class="py-2 px-4 capitalize">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for vid in videos%}
+                    <tr class="border-b border-gray-500">
+                        <td class=" py-2  px-2">
+                          <div class="flex">
+                              <img src="{{vid.videodetail.thumbnail.url}}" class="w-20 h-20 mr-4" alt="">
+                              <div>
+                                  <h3>{{vid.videodetail.title}}</h3>
+                                  <p>{{vid.videodetail.description|truncatewords:5}}</p>
+                              </div>
+                          </div>
+
+
+                        </td>
+                        <td class="text-lg px-4  capitalize">
+                            {%if vid.videodetail.visibility %}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline-block text-green-500" width="20" height="20" fill="currentColor">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                              </svg>
+                            public
+                            {%else%}
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" class="inline-block text-red-500"  width="20" height="20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3.707 2.293a1 1 0 00-1.414 1.414l14 14a1 1 0 001.414-1.414l-1.473-1.473A10.014 10.014 0 0019.542 10C18.268 5.943 14.478 3 10 3a9.958 9.958 0 00-4.512 1.074l-1.78-1.781zm4.261 4.26l1.514 1.515a2.003 2.003 0 012.45 2.45l1.514 1.514a4 4 0 00-5.478-5.478z" clip-rule="evenodd" />
+                                <path d="M12.454 16.697L9.75 13.992a4 4 0 01-3.742-3.741L2.335 6.578A9.98 9.98 0 00.458 10c1.274 4.057 5.065 7 9.542 7 .847 0 1.669-.105 2.454-.303z" />
+                              </svg>
+                              private
+                            {%endif%}
+                        </td>
+                        <td class="text-md px-4  capitalize"> {{vid.uploaded|date:"F d Y"}}</td>
+                        <td class="text-lg px-4  capitalize">{{vid.view_count.count}}</td>
+                        <td class="text-lg px-4  capitalize">{{vid.num_likes}} likes</td>
+                        <td class="text-lg px-4  capitalize">{{vid.comments.count}}</td>
+                        <td><a href="{%url 'update-video' vid.id%}" class=" py-2 px-4 border text-gray-300 bg-teal-500">Update</a></td>
+                        <td><a href="{%url 'delete-video' vid.id%}" class="py-2 px-4 border bg-red-500 hover:bg-red-700 text-white">Delete</a></td>
+                    </tr>         
+                    {%endfor%}
+                </tbody>
+                </table>
+
+             
+           </div> 
+           
+           
+        
+
+
+        </div>
+    </div>
+</main>
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+  <script>
+    $(document).ready(function(){
+      $(".profile .icon_wrap").click(function(){
+          $(this).parent().toggleClass("active");
+          $(".notification").removeClass("active");
+      })
+
+      $(".notification .icon_wrap").click(function(){
+          $(this).parent().toggleClass("active");
+          $(".profile").removeClass("active");
+      })
+    })
+</script>
+</body>
+</html>
