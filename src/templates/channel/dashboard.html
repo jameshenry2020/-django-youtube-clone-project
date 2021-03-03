@@ -221,7 +221,7 @@
                         <td class="text-lg px-4  capitalize">{{vid.num_likes}} likes</td>
                         <td class="text-lg px-4  capitalize">{{vid.comments.count}}</td>
                         <td><a href="{%url 'update-video' vid.id%}" class=" py-2 px-4 border text-gray-300 bg-teal-500">Update</a></td>
-                        <td><a href="#" class="py-2 px-4 border bg-red-500 hover:bg-red-700 text-white">Delete</a></td>
+                        <td><a href="{%url 'delete-video' vid.id%}" class="py-2 px-4 border bg-red-500 hover:bg-red-700 text-white">Delete</a></td>
                     </tr>         
                     {%endfor%}
                 </tbody>

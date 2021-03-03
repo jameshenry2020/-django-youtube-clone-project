@@ -61,6 +61,16 @@ def update_video(request, id):
     }
     return render(request, "channel/video-update.html", context)
 
+def delete_video(request, id):
+    video=VideoFiles.objects.get(id=id)
+    if request.method=="POST":
+        video.delete()
+        return redirect("channel-dashboard", slug=request.user.username)
+    context={
+        "video":video
+    }
+    return render(request, "channel/delete_video.html", context)
+
 
 def index(request):
     allvideos=VideoFiles.objects.all()

@@ -1,0 +1,26 @@
+{% extends "base.html"%}
+{% load static %}
+
+
+{% block head_title %}Delete Video{% endblock %}
+
+
+{%block content%} 
+<div class="text-center mb-8"> 
+<h1>Delete Video</h1>
+
+</div>
+<div class="container">
+   <div class="border border-gray-300 w-1/2 p-8 mx-auto shadow-md">
+      <p class="mb-4 text-lg capitalize">Are you sure you want to delete <span class=" ml-2 font-semibold">{{video.videodetail.title}}</span></p>
+        <form action="{%url 'delete-video' video.id%}" method="POST">
+           {% csrf_token %}
+           <a href="{%url 'channel-dashboard' user.username %}" class="py-2 px-6 border text-lg border-gray-400 bg-teal-500">Cancel</a>
+           <input type="submit" value="Confirm" class="py-2 px-6 border text-lg border-gray-400 bg-red-500">
+        </form>
+   </div>
+</div>
+ 
+
+{% endblock %}
+

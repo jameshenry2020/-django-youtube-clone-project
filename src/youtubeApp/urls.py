@@ -12,7 +12,8 @@ from .views import ( create_channel,
                     subscriber_view,
                     video_comment,
                     dashboard,
-                    update_video
+                    update_video,
+                    delete_video
                     
                    )
 
@@ -25,6 +26,7 @@ urlpatterns=[
     path("channel/dashboard/<slug>/", dashboard, name="channel-dashboard"),
     path("like/<uuid:id>/", liked_video, name="like-video"),
     path("channel/edit_video/<uuid:id>", update_video, name="update-video"),
+    path("channel/delete_video/<uuid:id>", delete_video, name="delete-video"),
     path("dislike/<uuid:id>/", dislike_video, name="dislike-video"),
     path("update_channel/<slug>/", edit_channel, name="update-channel"),
     path("upload/", upload_view, name="file-upload"),
